@@ -29,3 +29,7 @@ test('matches a word that is partially contained in the search criteria', t => {
 test('does not matches a word that is partially contained in the search criteria when followed by a space', t => {
   t.deepEqual(LiteralSearchStrategy.matches('this tasty tester text', 'test '), false)
 })
+
+test('does not matches last word that is partially contained in the search criteria when followed by a space', t => {
+  t.deepEqual(LiteralSearchStrategy.matches('this tasty tester text', 'text '), false)
+})
