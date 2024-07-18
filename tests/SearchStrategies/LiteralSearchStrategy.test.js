@@ -18,6 +18,14 @@ test('matches exact words when exacts words with space in the search criteria', 
   t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', 'hello world '), true)
 })
 
+test('matches exact words when exacts words with quotes in the search criteria', t => {
+  t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', '"hello world"'), true)
+})
+
+test('matches exact last words when exacts words with quotes in the search criteria', t => {
+  t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', '"search text"'), true)
+})
+
 test('does not matches multiple words if not exact words with space in the search criteria', t => {
   t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', 'hello text world '), false)
 })
