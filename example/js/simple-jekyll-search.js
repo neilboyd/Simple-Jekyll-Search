@@ -27,7 +27,7 @@ function setOptions (_options) {
 
 function compile (data) {
   return options.template.replace(options.pattern, function (match, prop) {
-    const value = options.middleware(prop, data[prop], options.template)
+    const value = options.middleware(prop, data[prop], options.template, data.query)
     if (typeof value !== 'undefined') {
       return value
     }
