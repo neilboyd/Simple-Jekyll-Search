@@ -167,7 +167,7 @@ If the `search.json` contains this data
 
 A function that will be called whenever a match in the template is found.
 
-It gets passed the current property name, property value, and the template.
+It gets passed the current property name, property value, the template, and the search query.
 
 If the function returns a non-undefined value, it gets replaced in the template.
 
@@ -178,7 +178,7 @@ Example:
 ```js
 SimpleJekyllSearch({
   ...
-  templateMiddleware: function(prop, value, template) {
+  templateMiddleware: function(prop, value, template, query) {
     if (prop === 'bar') {
       return value.replace(/^\//, '')
     }

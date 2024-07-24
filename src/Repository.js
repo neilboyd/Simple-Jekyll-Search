@@ -91,7 +91,7 @@ function findMatches (data, crit, strategy, opt) {
 
 function findMatchesInObject (obj, crit, strategy, opt) {
   for (const key in obj) {
-    if (!isExcluded(obj[key], opt.exclude) && strategy.matches(obj[key], crit)) {
+    if (key !== 'query' && !isExcluded(obj[key], opt.exclude) && strategy.matches(obj[key], crit)) {
       return obj
     }
   }

@@ -13,7 +13,7 @@ function LiteralSearchStrategy () {
     }
     if (crit.startsWith('"') && crit.endsWith('"')) {
       exact = true
-      crit = crit.substring(1, crit.length - 2)
+      crit = crit.substring(1, crit.length - 1)
     }
     crit = crit.toLowerCase()
     crit = exact ? [crit] : crit.split(' ')

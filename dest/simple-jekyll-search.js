@@ -27,7 +27,7 @@ function setOptions (_options) {
 
 function compile (data) {
   return options.template.replace(options.pattern, function (match, prop) {
-    const value = options.middleware(prop, data[prop], options.template)
+    const value = options.middleware(prop, data[prop], options.template, data.query)
     if (typeof value !== 'undefined') {
       return value
     }
@@ -90,7 +90,7 @@ function LiteralSearchStrategy () {
     }
     if (crit.startsWith('"') && crit.endsWith('"')) {
       exact = true
-      crit = crit.substring(1, crit.length - 2)
+      crit = crit.substring(1, crit.length - 1)
     }
     crit = crit.toLowerCase()
     crit = exact ? [crit] : crit.split(' ')
@@ -192,7 +192,7 @@ function findMatches (data, crit, strategy, opt) {
 
 function findMatchesInObject (obj, crit, strategy, opt) {
   for (const key in obj) {
-    if (!isExcluded(obj[key], opt.exclude) && strategy.matches(obj[key], crit)) {
+    if (key !== 'query' && !isExcluded(obj[key], opt.exclude) && strategy.matches(obj[key], crit)) {
       return obj
     }
   }
