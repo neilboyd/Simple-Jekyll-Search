@@ -2,9 +2,9 @@
 
 module.exports = new LiteralSearchStrategy()
 
-const segmenter = new Intl.Segmenter([], { granularity: 'word' });
+const segmenter = new Intl.Segmenter([], { granularity: 'word' })
 
-function LiteralSearchStrategy() {
+function LiteralSearchStrategy () {
   this.matches = function (str, crit) {
     if (!str) return false
     str = str.trim().toLowerCase()
@@ -20,8 +20,8 @@ function LiteralSearchStrategy() {
     crit = crit.toLowerCase()
     let critArray = [crit]
     if (!exact) {
-      const segmentedText = segmenter.segment(crit);
-      critArray = [...segmentedText].filter(s => s.isWordLike).map(s => s.segment);
+      const segmentedText = segmenter.segment(crit)
+      critArray = [...segmentedText].filter(s => s.isWordLike).map(s => s.segment)
     }
 
     return (
