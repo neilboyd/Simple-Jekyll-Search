@@ -1,9 +1,5 @@
 # [Simple-Jekyll-Search](https://www.npmjs.com/package/simple-jekyll-search)
 
-[![Build Status](https://img.shields.io/travis/christian-fei/Simple-Jekyll-Search/master.svg?)](https://travis-ci.org/christian-fei/Simple-Jekyll-Search)
-[![dependencies Status](https://img.shields.io/david/christian-fei/Simple-Jekyll-Search.svg)](https://david-dm.org/christian-fei/Simple-Jekyll-Search)
-[![devDependencies Status](https://img.shields.io/david/dev/christian-fei/Simple-Jekyll-Search.svg)](https://david-dm.org/christian-fei/Simple-Jekyll-Search?type=dev)
-
 A JavaScript library to add search functionality to any Jekyll blog.
 
 ## Use case
@@ -328,7 +324,3 @@ Thanks to all [contributors](https://github.com/christian-fei/Simple-Jekyll-Sear
 [@kremalicious](https://github.com/kremalicious)
 [@tibotiber](https://github.com/tibotiber)
 and many others!
-
-## Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/christian-fei/Simple-Jekyll-Search.svg)](https://starchart.cc/christian-fei/Simple-Jekyll-Search)
