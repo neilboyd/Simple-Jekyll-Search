@@ -4,11 +4,13 @@
 
 'use strict'
 
+const version = process.argv[2] || ''
+
 const year = new Date().getFullYear()
 
 const stampTop =
 `/*!
-  * Simple-Jekyll-Search
+  * Simple-Jekyll-Search ${version}
   * Copyright 2015-${year}, Christian Fei
   * Licensed under the MIT License.
   */
