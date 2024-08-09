@@ -14,10 +14,6 @@ test('matches a word that is contained in the search criteria (multiple words)',
   t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', 'hello text world'), true)
 })
 
-test('matches exact words when exacts words with space in the search criteria', t => {
-  t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', 'hello world '), true)
-})
-
 test('matches exact words when exacts words with quotes in the search criteria', t => {
   t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', '"hello world"'), true)
 })
@@ -26,14 +22,14 @@ test('matches exact last words when exacts words with quotes in the search crite
   t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', '"search text"'), true)
 })
 
-test('does not matches multiple words if not exact words with space in the search criteria', t => {
-  t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', 'hello text world '), false)
-})
-
 test('matches a word that is partially contained in the search criteria', t => {
   t.deepEqual(LiteralSearchStrategy.matches('this tasty tester text', 'test'), true)
 })
 
-test('does not matches a word that is partially contained in the search criteria when followed by a space', t => {
-  t.deepEqual(LiteralSearchStrategy.matches('this tasty tester text', 'test '), false)
+test('matches when search criteria has puncuation', t => {
+  t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', 'hello, world!'), true)
+})
+
+test('does not match when only only one word of search criteria is in the text', t => {
+  t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', 'hello muppet'), false)
 })
