@@ -25,3 +25,11 @@ test('matches exact last words when exacts words with quotes in the search crite
 test('matches a word that is partially contained in the search criteria', t => {
   t.deepEqual(LiteralSearchStrategy.matches('this tasty tester text', 'test'), true)
 })
+
+test('matches when search criteria has puncuation', t => {
+  t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', 'hello, world!'), true)
+})
+
+test('does not match when only only one word of search criteria is in the text', t => {
+  t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', 'hello muppet'), false)
+})
