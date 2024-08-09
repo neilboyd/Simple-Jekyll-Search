@@ -6,22 +6,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: install
-        run: |
-          npm install
+        run: npm install
+
       - name: test
-        run: |
-          npm t
+        run: npm t
+
       # - name: start server for uat
       #   run: |
-      #     npx http-server example/_site -p 4000 
+      #     npx http-server example/_site -p 4000
+
       # - name: uat
       #   uses: cypress-io/github-action@v2
       #   with:
       #     record: false
       #     # cache-key: node-v${{ matrix.node }}-on-${{ runner.os }}-hash-${{ hashFiles('package-lock.json') }}
+
+      - name: Branch Name
+        run: echo ${GITHUB_REF}
+
       - name: publish
-        if: github.ref == 'refs/heads/master'
+        if: contains(github.ref, 'refs/tags/')
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
