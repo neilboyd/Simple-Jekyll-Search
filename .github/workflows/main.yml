@@ -14,8 +14,7 @@ jobs:
         run: npm t
 
       # - name: start server for uat
-      #   run: |
-      #     npx http-server example/_site -p 4000
+      #   run: npx http-server example/_site -p 4000
 
       # - name: uat
       #   uses: cypress-io/github-action@v2
