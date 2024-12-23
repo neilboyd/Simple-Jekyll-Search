@@ -38,7 +38,7 @@
     "ava": "^3.14.0",
     "browser-pack-flat": "^3.4.2",
     "browserify": "^17.0.0",
-    "cypress": "^6.2.0",
+    "cypress": "^6.9.1",
     "standard": "^16.0.3",
     "uglify-js": "^3.12.3"
   },
