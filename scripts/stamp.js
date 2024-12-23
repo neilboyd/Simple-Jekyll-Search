@@ -11,7 +11,7 @@ const year = new Date().getFullYear()
 const stampTop =
 `/*!
   * Simple-Jekyll-Search ${version}
-  * Copyright 2015-${year}, Christian Fei
+  * Copyright 2015-${year}, Christian Fei, Neil Boyd
   * Licensed under the MIT License.
   */
 

@@ -22,10 +22,6 @@ jobs:
       #     record: false
       #     # cache-key: node-v${{ matrix.node }}-on-${{ runner.os }}-hash-${{ hashFiles('package-lock.json') }}
 
-      # TODO delete this step in the next release
-      - name: Branch Name
-        run: echo ${GITHUB_REF}
-
       - name: publish
         if: contains(github.ref, 'refs/tags/')
         env:
