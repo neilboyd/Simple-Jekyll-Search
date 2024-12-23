@@ -2,6 +2,21 @@
 
 A JavaScript library to add search functionality to any Jekyll blog.
 
+## Fork
+
+This is a fork of
+[the original](https://github.com/christian-fei/Simple-Jekyll-Search)
+because all the
+[releases](https://github.com/christian-fei/Simple-Jekyll-Search/tags)
+after `1.9.0` were actually the same as `1.9.0` because the build step was not executed.
+
+I then made the following changes:
+- add [dev container](https://code.visualstudio.com/docs/devcontainers/containers) configuration
+- exact search using quotes instead of trailing space
+- add query parameter to middleware
+- split search criteria on words instead of space
+- add package version to header
+
 ## Use case
 
 You have a blog, built with Jekyll, and want a **lightweight search functionality** on your blog, purely client-side?
@@ -299,6 +314,7 @@ layout: none
 
 - `npm install`
 - `npm test`
+- `npm run dist`
 
 #### Acceptance tests
 
