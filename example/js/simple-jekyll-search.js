@@ -1,6 +1,6 @@
 /*!
-  * Simple-Jekyll-Search 1.12.0
-  * Copyright 2015-2024, Christian Fei
+  * Simple-Jekyll-Search 1.12.1
+  * Copyright 2015-2024, Christian Fei, Neil Boyd
   * Licensed under the MIT License.
   */
 
