@@ -32,7 +32,7 @@
         searchInput: document.getElementById('search-input'),
         resultsContainer: document.getElementById('results-container'),
         json: '{{ site.baseurl }}/search.json',
-        searchResultTemplate: '<li><a href="{url}?query={query}" title="{desc}">{title}</a></li>',
+        searchResultTemplate: '<li><a href="{url}?query={query}" title="{desc}">{title}</a></li><blockquote><small>{content}</small></blockquote>',
         templateMiddleware: templateMiddleware,
         noResultsText: 'No results found',
         limit: 10,
