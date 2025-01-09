@@ -1,6 +1,6 @@
 /*!
-  * Simple-Jekyll-Search 1.12.1
-  * Copyright 2015-2024, Christian Fei, Neil Boyd
+  * Simple-Jekyll-Search 1.13.0
+  * Copyright 2015-2025, Christian Fei, Neil Boyd
   * Licensed under the MIT License.
   */
 
@@ -284,7 +284,8 @@ var _$OptionsValidator_3 = function OptionsValidator (params) {
 
 var _$utils_9 = {
   merge: merge,
-  isJSON: isJSON
+  isJSON: isJSON,
+  highlightMatchedText: highlightMatchedText
 }
 
 function merge (defaultParams, mergeParams) {
@@ -307,6 +308,41 @@ function isJSON (json) {
   } catch (err) {
     return false
   }
+}
+
+function highlightMatchedText (value, query) {
+  // for exact search highlight full text, otherwise highlight each word
+  const results =
+    query.startsWith('"') && query.endsWith('"')
+      ? [query.substring(1, query.length - 1)]
+      : query.split(' ')
+  results.forEach((result) => {
+    let j = 0
+    while (true) {
+      j = value.toLowerCase().indexOf(result.toLowerCase(), j)
+      if (j < 0) {
+        break
+      }
+      const k = j + result.length
+      value =
+        value.substring(0, j) +
+        '<b>' +
+        value.substring(j, k) +
+        '</b>' +
+        value.substring(k)
+      j += 4 // move past the previous match
+    }
+  })
+  const i = value.indexOf('<b>')
+  if (i > 100) {
+    // trim start so that match is visible
+    value = value.substring(i - 100)
+  }
+  if (value.length > 200) {
+    // trim the amount of text shown
+    value = value.substring(0, 200 + query.length)
+  }
+  return value
 }
 
 var _$src_8 = {};
@@ -384,6 +420,8 @@ var _$src_8 = {};
     typeof options.success === 'function' && options.success.call(rv)
     return rv
   }
+
+  window.HighlightMatchedText = _$utils_9.highlightMatchedText
 
   function initWithJSON (json) {
     _$Repository_4.put(json)
