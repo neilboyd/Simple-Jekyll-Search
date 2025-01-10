@@ -10,6 +10,11 @@ test('merges objects', t => {
   t.deepEqual(mergedOptions.bar, options.bar)
 })
 
-test('returns true if is JSON object', t => {
+test('isJSON returns true if is JSON object', t => {
   t.true(utils.isJSON({ foo: 'bar' }))
+})
+
+test('highlightMatchedText hightlight text', t => {
+  const value = utils.highlightMatchedText('foo test bar', 'test')
+  t.deepEqual(value, 'foo <b>test</b> bar')
 })
