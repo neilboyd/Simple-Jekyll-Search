@@ -3,7 +3,6 @@ layout: post
 title:  "This is a post in Turkish"
 date:   2025-01-01 17:01:42
 categories: jekyll update
-lang: tr-TR
 ---
 
 Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.
@@ -18,9 +17,6 @@ Note, in JavaScript:
 "HADİ".length == 4
 "HADİ".toLowerCase().length == 5
 "HADİ".toUpperCase().length == 4
-"HADİ".toLocaleLowerCase().length == 5
-"HADİ".toLocaleLowerCase("tr").length == 4
-"HADİ".toLocaleLowerCase("tr-TR").length == 4
 ```
 
 Lorem Ipsum, adı bilinmeyen bir matbaacının bir hurufat numune kitabı oluşturmak üzere bir yazı galerisini alarak karıştırdığı 1500'lerden beri endüstri standardı sahte metinler olarak kullanılmıştır.
