@@ -10,6 +10,19 @@ Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.
 
 HADİ SİZE İYİ YOLCULUKLAR!
 
+This is to test for searching and highlighting Turkish text.
+
+Note, in JavaScript:
+
+```javascript
+"HADİ".length == 4
+"HADİ".toLowerCase().length == 5
+"HADİ".toUpperCase().length == 4
+"HADİ".toLocaleLowerCase().length == 5
+"HADİ".toLocaleLowerCase("tr").length == 4
+"HADİ".toLocaleLowerCase("tr-TR").length == 4
+```
+
 Lorem Ipsum, adı bilinmeyen bir matbaacının bir hurufat numune kitabı oluşturmak üzere bir yazı galerisini alarak karıştırdığı 1500'lerden beri endüstri standardı sahte metinler olarak kullanılmıştır.
 
 Beşyüz yıl boyunca varlığını sürdürmekle kalmamış, aynı zamanda pek değişmeden elektronik dizgiye de sıçramıştır.

@@ -37,7 +37,7 @@ function highlightMatchedText (value, query) {
   results.forEach((result) => {
     let j = 0
     while (true) {
-      j = value.toLowerCase().indexOf(result.toLowerCase(), j)
+      j = value.toUpperCase().indexOf(result.toUpperCase(), j)
       if (j < 0) {
         break
       }

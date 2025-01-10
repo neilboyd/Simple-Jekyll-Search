@@ -71,7 +71,7 @@ function FuzzySearchStrategy () {
     if (string === null) {
       return false
     }
-    return _$fuzzysearch_1(crit.toLowerCase(), string.toLowerCase())
+    return _$fuzzysearch_1(crit.toUpperCase(), string.toUpperCase())
   }
 }
 
@@ -86,8 +86,8 @@ function LiteralSearchStrategy () {
     if (!str) {
       return false
     }
-    str = str.trim().toLowerCase()
-    crit = crit.trim().toLowerCase()
+    str = str.trim().toUpperCase()
+    crit = crit.trim().toUpperCase()
 
     let critArray = []
     if (crit.startsWith('"') && crit.endsWith('"')) {
@@ -319,7 +319,7 @@ function highlightMatchedText (value, query) {
   results.forEach((result) => {
     let j = 0
     while (true) {
-      j = value.toLowerCase().indexOf(result.toLowerCase(), j)
+      j = value.toUpperCase().indexOf(result.toUpperCase(), j)
       if (j < 0) {
         break
       }
