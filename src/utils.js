@@ -28,7 +28,7 @@ function isJSON (json) {
   }
 }
 
-function highlightMatchedText (value, query) {
+function highlightMatchedText (value, query, snippetLength = 200) {
   // for exact search highlight full text, otherwise highlight each word
   const results =
     query.startsWith('"') && query.endsWith('"')
@@ -51,14 +51,17 @@ function highlightMatchedText (value, query) {
       j += 4 // move past the previous match
     }
   })
+
+  // now trim to snippetLength
+  const snippetPrefixLength = Math.round(snippetLength / 2)
   const i = value.indexOf('<b>')
-  if (i > 100) {
+  if (i > snippetPrefixLength) {
     // trim start so that match is visible
-    value = value.substring(i - 100)
+    value = value.substring(i - snippetPrefixLength)
   }
-  if (value.length > 200) {
+  if (value.length > snippetLength) {
     // trim the amount of text shown
-    value = value.substring(0, 200 + query.length)
+    value = value.substring(0, snippetLength + query.length)
   }
   return value
 }
