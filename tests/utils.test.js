@@ -19,6 +19,11 @@ test('highlightMatchedText hightlight text', t => {
   t.deepEqual(value, 'foo <b>test</b> bar')
 })
 
+test('highlightMatchedText hightlight multiple text', t => {
+  const value = utils.highlightMatchedText('foo test bar doo dah', 'test doo')
+  t.deepEqual(value, 'foo <b>test</b> bar <b>doo</b> dah')
+})
+
 test('highlightMatchedText doesnt trim opening tag', t => {
   const value = utils.highlightMatchedText('1234 test 1234 test 1234', 'test', 20)
   t.deepEqual(value, '1234 <b>test</b> 1234')
