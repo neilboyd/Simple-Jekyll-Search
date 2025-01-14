@@ -38,6 +38,8 @@ function highlightMatchedText (value, query, snippetLength = 200) {
     query.startsWith('"') && query.endsWith('"')
       ? [query.substring(1, query.length - 1)]
       : query.split(' ')
+
+  // highlight each match
   results.forEach((result) => {
     let j = 0
     while (true) {
@@ -65,6 +67,8 @@ function highlightMatchedText (value, query, snippetLength = 200) {
   if (value.length > snippetLength) {
     // trim the amount of text shown
     value = value.substring(0, snippetLength + query.length)
+
+    // TODO check that we didn't trim in the middle of a tag
   }
   return value
 }
