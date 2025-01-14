@@ -29,6 +29,10 @@ function isJSON (json) {
 }
 
 function highlightMatchedText (value, query, snippetLength = 200) {
+  // make sure it has a reasonable minimum
+  snippetLength = Math.max(snippetLength, 20)
+  const snippetPrefixLength = Math.round(snippetLength / 2)
+
   // for exact search highlight full text, otherwise highlight each word
   const results =
     query.startsWith('"') && query.endsWith('"')
@@ -53,7 +57,6 @@ function highlightMatchedText (value, query, snippetLength = 200) {
   })
 
   // now trim to snippetLength
-  const snippetPrefixLength = Math.round(snippetLength / 2)
   const i = value.indexOf('<b>')
   if (i > snippetPrefixLength) {
     // trim start so that match is visible
