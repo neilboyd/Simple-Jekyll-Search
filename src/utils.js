@@ -66,7 +66,7 @@ function highlightMatchedText (value, query, snippetLength = 200) {
   }
   if (value.length > snippetLength) {
     // trim the amount of text shown
-    value = value.substring(0, snippetLength + query.length)
+    value = value.substring(0, snippetLength)
 
     // TODO check that we didn't trim in the middle of a tag
   }
