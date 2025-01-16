@@ -42,7 +42,7 @@ test('highlightMatchedText doesnt remove closing tag', t => {
 })
 test('highlightMatchedText doesnt trim opening tag', t => {
   const value = utils.highlightMatchedText('1234 test 1234 test 1234', 'test', 24)
-  t.deepEqual(value, '1234 <b>test</b> 1234')
+  t.deepEqual(value, '1234 <b>test</b> 1234 ')
 })
 
 test('highlightMatchedText doesnt trim closing tag', t => {

@@ -65,10 +65,14 @@ function highlightMatchedText (value, query, snippetLength = 200) {
     value = value.substring(i - snippetPrefixLength)
   }
   if (value.length > snippetLength) {
-    // trim the amount of text shown
-    value = value.substring(0, snippetLength)
+    // trim the amount of text shown, ensuring not to trim in the middle of a tag
+    const o = value.indexOf('<b>', snippetLength - 3)
+    if (o >= snippetLength - 3 && o < snippetLength) {
+      // trim before the opening tag
+      return value.substring(0, o)
+    }
 
-    // TODO check that we didn't trim in the middle of a tag
+    value = value.substring(0, snippetLength)
   }
   return value
 }
