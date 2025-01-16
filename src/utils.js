@@ -66,10 +66,20 @@ function highlightMatchedText (value, query, snippetLength = 200) {
   }
   if (value.length > snippetLength) {
     // trim the amount of text shown, ensuring not to trim in the middle of a tag
-    const o = value.indexOf('<b>', snippetLength - 3)
+
+    let o = value.indexOf('<b>', snippetLength - 3)
     if (o >= snippetLength - 3 && o < snippetLength) {
       // trim before the opening tag
       return value.substring(0, o)
+    }
+
+    o = value.lastIndexOf('<b>', snippetLength - 3)
+    if (o !== -1) {
+      const c = value.indexOf('</b>', o)
+      if (c >= snippetLength - 3) {
+        // trim before the closing tag, and add a new closing tag
+        return value.substring(0, snippetLength - 4) + '</b>'
+      }
     }
 
     value = value.substring(0, snippetLength)
