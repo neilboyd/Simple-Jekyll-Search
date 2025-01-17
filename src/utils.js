@@ -58,31 +58,29 @@ function highlightMatchedText (value, query, snippetLength = 200) {
     }
   })
 
-  // now trim to snippetLength
-  const i = value.indexOf('<b>')
-  if (i > snippetPrefixLength) {
-    // trim start so that match is visible
-    value = value.substring(i - snippetPrefixLength)
+  // trim start so that match is visible
+  let s = value.indexOf('<b>')
+  if (s > snippetPrefixLength) {
+    s = s - snippetPrefixLength
+  } else {
+    s = 0
   }
-  if (value.length > snippetLength) {
-    // trim the amount of text shown, ensuring not to trim in the middle of a tag
 
-    let o = value.indexOf('<b>', snippetLength - 3)
-    if (o >= snippetLength - 3 && o < snippetLength) {
-      // trim before the opening tag
-      return value.substring(0, o)
-    }
+  // trim start and end to snippet length
+  value = value.substring(s, snippetLength)
 
-    o = value.lastIndexOf('<b>', snippetLength - 3)
-    if (o !== -1) {
-      const c = value.indexOf('</b>', o)
-      if (c >= snippetLength - 3) {
-        // trim before the closing tag, and add a new closing tag
-        return value.substring(0, snippetLength - 4) + '</b>'
-      }
-    }
-
-    value = value.substring(0, snippetLength)
+  // if end is a partial tag, or a complete opening tag, then trim it
+  const t = value.indexOf('<', snippetLength - 3)
+  if (t !== -1) {
+    value = value.substring(0, t)
   }
+
+  // if last opening tag is after last closing tag, then add a new closing tag
+  const o = value.lastIndexOf('<b>')
+  const c = value.lastIndexOf('</b>')
+  if (o > c) {
+    return value + '</b>'
+  }
+
   return value
 }
