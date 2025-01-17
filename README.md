@@ -198,7 +198,7 @@ SimpleJekyllSearch({
 })
 ```
 
-See the [tests](https://github.com/christian-fei/Simple-Jekyll-Search/blob/master/tests/Templater.test.js) for an in-depth code example
+See the [tests](tests/Templater.test.js) for an in-depth code example
 
 ### sortMiddleware (Function) [optional]
 
@@ -245,6 +245,24 @@ A function called once the data has been loaded.
 ### debounceTime (Number) [optional]
 
 Limit how many times the search function can be executed over the given time window. This is especially useful to improve the user experience when searching over a large dataset (either with rare terms or because the number of posts to display is large). If no `debounceTime` (milliseconds) is provided a search will be triggered on each keystroke.
+
+## highlightMatchedText (value, query, snippetLength)
+
+A helper function that might be useful in `templateMiddleware` (or anywhere else).
+See [default layout](example/_layouts/default.html) for an example of usage.
+
+### value (String)
+
+The matched text.
+
+### query (String)
+
+The text that was searched for.
+
+### snippetLength (Number) [optional]
+
+The length to trim the text to.
+Defaults to 200.
 
 ---
 
