@@ -9,6 +9,6 @@ function FuzzySearchStrategy () {
     if (string === null) {
       return false
     }
-    return fuzzysearch(crit.toLowerCase(), string.toLowerCase())
+    return fuzzysearch(crit.toUpperCase(), string.toUpperCase())
   }
 }

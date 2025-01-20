@@ -1,6 +1,6 @@
 {
   "name": "simple-jekyll-search",
-  "version": "1.12.1",
+  "version": "1.13.0",
   "description": "Simple Jekyll site search using javascript and json",
   "main": "dest/simple-jekyll-search.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "type": "git",
     "url": "git+https://github.com/christian-fei/Simple-Jekyll-Search.git"
   },
-  "author": "Christian Fei",
+  "author": "Christian Fei, Neil Boyd",
   "license": "MIT",
   "files": [
     "dest",

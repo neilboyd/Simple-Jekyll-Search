@@ -1,3 +1,5 @@
 {
-    "semi": false
+  "semi": false,
+  "trailingComma": "none",
+  "prettier.spaceBeforeFunctionParen": true // I want this because it matches lint, but it doesn't work
 }

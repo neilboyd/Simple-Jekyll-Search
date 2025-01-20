@@ -1,6 +1,6 @@
 /*!
-  * Simple-Jekyll-Search 1.12.1
-  * Copyright 2015-2024, Christian Fei, Neil Boyd
+  * Simple-Jekyll-Search 1.13.0
+  * Copyright 2015-2025, Christian Fei, Neil Boyd
   * Licensed under the MIT License.
   */
 
@@ -71,7 +71,7 @@ function FuzzySearchStrategy () {
     if (string === null) {
       return false
     }
-    return _$fuzzysearch_1(crit.toLowerCase(), string.toLowerCase())
+    return _$fuzzysearch_1(crit.toUpperCase(), string.toUpperCase())
   }
 }
 
@@ -86,8 +86,8 @@ function LiteralSearchStrategy () {
     if (!str) {
       return false
     }
-    str = str.trim().toLowerCase()
-    crit = crit.trim().toLowerCase()
+    str = str.trim().toUpperCase()
+    crit = crit.trim().toUpperCase()
 
     let critArray = []
     if (crit.startsWith('"') && crit.endsWith('"')) {
@@ -284,7 +284,8 @@ var _$OptionsValidator_3 = function OptionsValidator (params) {
 
 var _$utils_9 = {
   merge: merge,
-  isJSON: isJSON
+  isJSON: isJSON,
+  highlightMatchedText: highlightMatchedText
 }
 
 function merge (defaultParams, mergeParams) {
@@ -307,6 +308,63 @@ function isJSON (json) {
   } catch (err) {
     return false
   }
+}
+
+function highlightMatchedText (value, query, snippetLength = 200) {
+  // make sure it has a reasonable minimum
+  snippetLength = Math.max(snippetLength, 20)
+  const snippetPrefixLength = Math.round(snippetLength / 2)
+
+  // for exact search highlight full text, otherwise highlight each word
+  const results =
+    query.startsWith('"') && query.endsWith('"')
+      ? [query.substring(1, query.length - 1)]
+      : query.split(' ')
+
+  // highlight each match
+  results.forEach((result) => {
+    let j = 0
+    while (true) {
+      j = value.toUpperCase().indexOf(result.toUpperCase(), j)
+      if (j < 0) {
+        break
+      }
+      const k = j + result.length
+      value =
+        value.substring(0, j) +
+        '<b>' +
+        value.substring(j, k) +
+        '</b>' +
+        value.substring(k)
+      j += 4 // move past the previous match
+    }
+  })
+
+  // trim start so that match is visible
+  let s = value.indexOf('<b>')
+  if (s > snippetPrefixLength) {
+    s = s - snippetPrefixLength
+  } else {
+    s = 0
+  }
+
+  // trim start and end to snippet length
+  value = value.substring(s, snippetLength)
+
+  // if end is a partial tag, or a complete opening tag, then trim it
+  const t = value.indexOf('<', snippetLength - 3)
+  if (t !== -1) {
+    value = value.substring(0, t)
+  }
+
+  // if last opening tag is after last closing tag, then add a new closing tag
+  const o = value.lastIndexOf('<b>')
+  const c = value.lastIndexOf('</b>')
+  if (o > c) {
+    return value + '</b>'
+  }
+
+  return value
 }
 
 var _$src_8 = {};
@@ -384,6 +442,8 @@ var _$src_8 = {};
     typeof options.success === 'function' && options.success.call(rv)
     return rv
   }
+
+  window.HighlightMatchedText = _$utils_9.highlightMatchedText
 
   function initWithJSON (json) {
     _$Repository_4.put(json)

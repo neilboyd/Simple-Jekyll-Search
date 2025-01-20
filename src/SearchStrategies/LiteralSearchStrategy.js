@@ -9,8 +9,8 @@ function LiteralSearchStrategy () {
     if (!str) {
       return false
     }
-    str = str.trim().toLowerCase()
-    crit = crit.trim().toLowerCase()
+    str = str.trim().toUpperCase()
+    crit = crit.trim().toUpperCase()
 
     let critArray = []
     if (crit.startsWith('"') && crit.endsWith('"')) {

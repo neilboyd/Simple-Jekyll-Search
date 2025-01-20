@@ -30,4 +30,14 @@ describe('Simple Jekyll Search', function () {
 
     cy.contains('No results found')
   })
+
+  it('Search Turkish highlights correct text', function () {
+    cy.visit('http://localhost:4000')
+
+    cy.get('#search-input')
+      .type('test')
+
+    cy.get('b').contains('test').should('have.length', 1)
+    cy.get('b').contains('test').should('have.text', 'test')
+  })
 })

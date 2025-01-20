@@ -73,6 +73,8 @@
     return rv
   }
 
+  window.HighlightMatchedText = utils.highlightMatchedText
+
   function initWithJSON (json) {
     repository.put(json)
     registerInput()
