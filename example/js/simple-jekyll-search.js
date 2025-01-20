@@ -310,12 +310,18 @@ function isJSON (json) {
   }
 }
 
-function highlightMatchedText (value, query) {
+function highlightMatchedText (value, query, snippetLength = 200) {
+  // make sure it has a reasonable minimum
+  snippetLength = Math.max(snippetLength, 20)
+  const snippetPrefixLength = Math.round(snippetLength / 2)
+
   // for exact search highlight full text, otherwise highlight each word
   const results =
     query.startsWith('"') && query.endsWith('"')
       ? [query.substring(1, query.length - 1)]
       : query.split(' ')
+
+  // highlight each match
   results.forEach((result) => {
     let j = 0
     while (true) {
@@ -333,15 +339,31 @@ function highlightMatchedText (value, query) {
       j += 4 // move past the previous match
     }
   })
-  const i = value.indexOf('<b>')
-  if (i > 100) {
-    // trim start so that match is visible
-    value = value.substring(i - 100)
+
+  // trim start so that match is visible
+  let s = value.indexOf('<b>')
+  if (s > snippetPrefixLength) {
+    s = s - snippetPrefixLength
+  } else {
+    s = 0
   }
-  if (value.length > 200) {
-    // trim the amount of text shown
-    value = value.substring(0, 200 + query.length)
+
+  // trim start and end to snippet length
+  value = value.substring(s, snippetLength)
+
+  // if end is a partial tag, or a complete opening tag, then trim it
+  const t = value.indexOf('<', snippetLength - 3)
+  if (t !== -1) {
+    value = value.substring(0, t)
   }
+
+  // if last opening tag is after last closing tag, then add a new closing tag
+  const o = value.lastIndexOf('<b>')
+  const c = value.lastIndexOf('</b>')
+  if (o > c) {
+    return value + '</b>'
+  }
+
   return value
 }
 
