@@ -1,5 +1,5 @@
 /*!
-  * Simple-Jekyll-Search 1.13.0
+  * Simple-Jekyll-Search 1.13.1
   * Copyright 2015-2025, Christian Fei, Neil Boyd
   * Licensed under the MIT License.
   */
@@ -349,7 +349,7 @@ function highlightMatchedText (value, query, snippetLength = 200) {
   }
 
   // trim start and end to snippet length
-  value = value.substring(s, snippetLength)
+  value = value.substring(s, s + snippetLength)
 
   // if end is a partial tag, or a complete opening tag, then trim it
   const t = value.indexOf('<', snippetLength - 3)
