@@ -31,6 +31,11 @@ test('highlightMatchedText hightlight multiple text', t => {
   t.deepEqual(value, 'foo <b>test</b> bar <b>doo</b> dah')
 })
 
+test('highlightMatchedText hightlight when match after snippet lenth', t => {
+  const value = utils.highlightMatchedText('123456789012345678901234567890 test bar', 'test', 30)
+  t.deepEqual(value, '78901234567890 <b>test</b> bar')
+})
+
 test('highlightMatchedText nothing matched nothing highlighted', t => {
   const value = utils.highlightMatchedText('foo test bar', 'blah')
   t.deepEqual(value, 'foo test bar')
