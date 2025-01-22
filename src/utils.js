@@ -67,7 +67,7 @@ function highlightMatchedText (value, query, snippetLength = 200) {
   }
 
   // trim start and end to snippet length
-  value = value.substring(s, snippetLength)
+  value = value.substring(s, s + snippetLength)
 
   // if end is a partial tag, or a complete opening tag, then trim it
   const t = value.indexOf('<', snippetLength - 3)

@@ -19,16 +19,25 @@ test('highlightMatchedText hightlight text', t => {
   t.deepEqual(value, 'foo <b>test</b> bar')
 })
 
-test('highlightMatchedText trims to correct length', t => {
-  const value = utils.highlightMatchedText('1234 test 1234567890', 'test', 20)
-  const expected = '1234 <b>test</b> 123'
-  t.deepEqual(value, expected)
-  t.deepEqual(expected.length, 20)
-})
-
 test('highlightMatchedText hightlight multiple text', t => {
   const value = utils.highlightMatchedText('foo test bar doo dah', 'test doo')
   t.deepEqual(value, 'foo <b>test</b> bar <b>doo</b> dah')
+})
+
+test('highlightMatchedText trims to correct length', t => {
+  const snippetLength = 20
+  const value = utils.highlightMatchedText('1234 test 1234567890', 'test', snippetLength)
+  const expected = '1234 <b>test</b> 123'
+  t.deepEqual(value, expected)
+  t.deepEqual(expected.length, snippetLength)
+})
+
+test('highlightMatchedText hightlight when match after snippet lenth', t => {
+  const snippetLength = 30
+  const value = utils.highlightMatchedText('123456789012345678901234567890 test 123456789012345678901234567890', 'test', snippetLength)
+  const expected = '78901234567890 <b>test</b> 123'
+  t.deepEqual(value, expected)
+  t.deepEqual(expected.length, snippetLength)
 })
 
 test('highlightMatchedText nothing matched nothing highlighted', t => {
