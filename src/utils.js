@@ -41,6 +41,10 @@ function highlightMatchedText (value, query, snippetLength = 200) {
 
   // highlight each match
   results.forEach((result) => {
+    if (result.length === 0) {
+      // first or last character is space
+      return
+    }
     let j = 0
     while (true) {
       j = value.toUpperCase().indexOf(result.toUpperCase(), j)

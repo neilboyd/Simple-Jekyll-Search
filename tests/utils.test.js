@@ -24,6 +24,16 @@ test('highlightMatchedText hightlight multiple text', t => {
   t.deepEqual(value, 'foo <b>test</b> bar <b>doo</b> dah')
 })
 
+test('highlightMatchedText when query starts with space', t => {
+  const value = utils.highlightMatchedText('foo test bar', ' test')
+  t.deepEqual(value, 'foo <b>test</b> bar')
+})
+
+test('highlightMatchedText when query ends with space', t => {
+  const value = utils.highlightMatchedText('foo test bar', 'test ')
+  t.deepEqual(value, 'foo <b>test</b> bar')
+})
+
 test('highlightMatchedText trims to correct length', t => {
   const snippetLength = 20
   const value = utils.highlightMatchedText('1234 test 1234567890', 'test', snippetLength)
