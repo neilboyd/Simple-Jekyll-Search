@@ -71,5 +71,5 @@ test('highlightMatchedText doesnt trim closing tag', t => {
 
 test('highlightMatchedText search b highlight b', t => {
   const value = utils.highlightMatchedText('b'.repeat(50), 'b')
-  t.deepEqual(value, '<b>b</b><b>b</b><b>b</b><b>b</b><b>b</b>')
+  t.deepEqual(value, '<b>b</b>'.repeat(25))
 })
