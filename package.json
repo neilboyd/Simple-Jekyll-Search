@@ -1,11 +1,11 @@
 {
   "name": "simple-jekyll-search",
-  "version": "1.13.2",
+  "version": "1.13.3",
   "description": "Simple Jekyll site search using javascript and json",
   "main": "dest/simple-jekyll-search.js",
   "scripts": {
     "cypress": "cypress",
-    "lint": "standard",
+    "lint": "standard --fix",
     "pretest": "npm run lint",
     "prebuild": "npm run test",
     "postbuild": "npm run copy-example-code",

@@ -52,13 +52,9 @@ function highlightMatchedText (value, query, snippetLength = 200) {
         break
       }
       const k = j + result.length
-      value =
-        value.substring(0, j) +
-        '<b>' +
-        value.substring(j, k) +
-        '</b>' +
-        value.substring(k)
-      j += 4 // move past the previous match
+      const highlighted = '<b>' + value.substring(j, k) + '</b>'
+      value = value.substring(0, j) + highlighted + value.substring(k)
+      j += highlighted.length // move past the previous match
     }
   })
 
