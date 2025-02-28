@@ -342,7 +342,10 @@ cd example; jekyll serve
 
 # in another tab
 
-npm run cypress -- run
+npm run cy:open
+# or
+npm run cy:run
+
 ```
 
 ## Contributors

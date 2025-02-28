@@ -4,7 +4,8 @@
   "description": "Simple Jekyll site search using javascript and json",
   "main": "dest/simple-jekyll-search.js",
   "scripts": {
-    "cypress": "cypress",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "lint": "standard --fix",
     "pretest": "npm run lint",
     "prebuild": "npm run test",
