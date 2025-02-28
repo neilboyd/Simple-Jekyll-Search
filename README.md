@@ -11,11 +11,12 @@ because all the
 after `1.9.0` were actually the same as `1.9.0` because the build step was not executed.
 
 I then made the following changes:
+- add package version to header
 - add [dev container](https://code.visualstudio.com/docs/devcontainers/containers) configuration
+- split search criteria on words instead of space
 - exact search using quotes instead of trailing space
 - add query parameter to middleware
-- split search criteria on words instead of space
-- add package version to header
+- add a function to highlight matched text for use in the middleware
 
 ## Use case
 
