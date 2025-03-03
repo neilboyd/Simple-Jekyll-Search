@@ -36,7 +36,7 @@
     "fuzzysearch": "^1.0.3"
   },
   "devDependencies": {
-    "ava": "^3.14.0",
+    "ava": "^6.2.0",
     "browser-pack-flat": "^3.4.2",
     "browserify": "^17.0.1",
     "cypress": "^14.1.0",
