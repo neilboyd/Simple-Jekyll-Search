@@ -17,7 +17,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: "3.3"
 
       - name: start server for e2e tests
         run: |
@@ -27,6 +27,12 @@ jobs:
 
       - name: e2e tests
         uses: cypress-io/github-action@v6
+        with:
+          wait-on: "http://localhost:4000"
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: publish
         if: contains(github.ref, 'refs/tags/')
