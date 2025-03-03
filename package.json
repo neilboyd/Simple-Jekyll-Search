@@ -41,7 +41,7 @@
     "browserify": "^17.0.0",
     "cypress": "^14.1.0",
     "standard": "^17.1.2",
-    "uglify-js": "^3.12.3"
+    "uglify-js": "^3.19.3"
   },
   "standard": {
     "ignore": [
