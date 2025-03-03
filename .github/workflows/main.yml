@@ -8,20 +8,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: install
+      - name: npm install
         run: npm install
 
-      - name: test
-        run: npm t
+      - name: Unit tests
+        run: npm test
 
-      # - name: start server for uat
-      #   run: npx http-server example/_site -p 4000
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
 
-      # - name: uat
-      #   uses: cypress-io/github-action@v2
-      #   with:
-      #     record: false
-      #     # cache-key: node-v${{ matrix.node }}-on-${{ runner.os }}-hash-${{ hashFiles('package-lock.json') }}
+      - name: start server for e2e tests
+        run: |
+          cd example
+          bundle install
+          bundle exec jekyll serve --detach
+
+      - name: e2e tests
+        uses: cypress-io/github-action@v6
+        with:
+          wait-on: "http://localhost:4000"
+          record: true
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: publish
         if: contains(github.ref, 'refs/tags/')

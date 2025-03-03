@@ -1,6 +1,6 @@
 describe('Simple Jekyll Search', function () {
   it('Searching a Post', function () {
-    cy.visit('http://localhost:4000')
+    cy.visit('/')
 
     cy.get('#search-input')
       .type('This')
@@ -10,7 +10,7 @@ describe('Simple Jekyll Search', function () {
   })
 
   it('Searching a Post follows link with query', function () {
-    cy.visit('http://localhost:4000')
+    cy.visit('/')
 
     cy.get('#search-input')
       .type('This')
@@ -23,7 +23,7 @@ describe('Simple Jekyll Search', function () {
   })
 
   it('No results found', function () {
-    cy.visit('http://localhost:4000')
+    cy.visit('/')
 
     cy.get('#search-input')
       .type('404')
@@ -32,7 +32,7 @@ describe('Simple Jekyll Search', function () {
   })
 
   it('Search Turkish highlights correct text', function () {
-    cy.visit('http://localhost:4000')
+    cy.visit('/')
 
     cy.get('#search-input')
       .type('test')
