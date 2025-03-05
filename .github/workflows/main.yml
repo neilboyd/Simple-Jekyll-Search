@@ -34,7 +34,7 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: publish
+      - name: Publish to npm
         if: contains(github.ref, 'refs/tags/')
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
