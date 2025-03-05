@@ -1,2 +1,4 @@
+
 sass:
+  style: compressed
   quiet_deps: true
