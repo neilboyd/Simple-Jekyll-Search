@@ -1,6 +1,6 @@
 module.exports = {
   projectId: 'pyd5kh',
   e2e: {
-    baseUrl: 'http://localhost:4000'
+    baseUrl: 'https://neilboyd.github.io/Simple-Jekyll-Search'
   }
 }
