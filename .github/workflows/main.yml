@@ -28,13 +28,14 @@ jobs:
       - name: e2e tests
         uses: cypress-io/github-action@v6
         with:
-          wait-on: "http://localhost:4000"
+          config: baseUrl=http://localhost:4000
+          wait-on: http://localhost:4000
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: publish
+      - name: Publish to npm
         if: contains(github.ref, 'refs/tags/')
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
