@@ -107,6 +107,10 @@
     margin-left: 0;
 }
 
+.sha {
+    font-size: 12px;
+}
+
 .footer-col-wrapper {
     font-size: 15px;
     color: $grey-color;
@@ -121,15 +125,15 @@
 }
 
 .footer-col-1 {
-    width:         calc(35% - (#{$spacing-unit} / 2));
+    width:         calc(25% - (#{$spacing-unit} / 2));
 }
 
 .footer-col-2 {
-    width:         calc(20% - (#{$spacing-unit} / 2));
+    width:         calc(40% - (#{$spacing-unit} / 2));
 }
 
 .footer-col-3 {
-    width:         calc(45% - (#{$spacing-unit} / 2));
+    width:         calc(35% - (#{$spacing-unit} / 2));
 }
 
 @include media-query($on-laptop) {
