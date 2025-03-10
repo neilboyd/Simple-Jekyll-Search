@@ -26,7 +26,7 @@
             </a>
           </li>
           <li>
-            <span class="sha">{{ site.github.build_revision }}</span>
+            <span class="sha">{{ site.github.build_revision | truncate: 7, '' }}</span>
           </li>
 
           {% if site.twitter_username %}
