@@ -1,4 +1,7 @@
 source "https://rubygems.org"
 
 gem "jekyll"
+
 gem "jekyll-github-metadata"
+gem "faraday-retry"
+gem "base64"
