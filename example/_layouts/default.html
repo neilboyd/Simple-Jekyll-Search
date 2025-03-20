@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <body>
+
+    {%- include header.html -%}
+
+    <div id="search-demo-container">
+        <input type="search" id="search-input" placeholder="search...">
+        <ul id="results-container"></ul>
+    </div>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+
+    {%- include footer.html -%}
+
+    <script src="{{ site.baseurl }}/js/simple-jekyll-search.min.js"></script>
+
+    <script>
+      const templateMiddleware = function(prop, value, template, query) {
+        if (prop === 'content') {
+          return HighlightMatchedText(value, query);
+        }
+      }
+      new SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('results-container'),
+        json: '{{ site.baseurl }}/search.json',
+        searchResultTemplate: '<li><a href="{url}?query={query}" title="{desc}">{title}</a></li><blockquote><small>{content}</small></blockquote>',
+        templateMiddleware: templateMiddleware,
+        noResultsText: 'No results found',
+        limit: 10,
+        fuzzy: false,
+        exclude: ['Welcome']
+      })
+    </script>
+
+  </body>
+
+</html>
