@@ -7,6 +7,24 @@
 
     {%- include header.html -%}
 
+    <style>
+      #search-demo-container {
+        max-width: 40em;
+        padding: 1em;
+        margin: 1em auto;
+        border: 1px solid lightgrey;
+      }
+      #search-input {
+        display: inline-block;
+        padding: .5em;
+        width: 100%;
+        font-size: 0.8em;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+    </style>
+
     <div id="search-demo-container">
         <input type="search" id="search-input" placeholder="search...">
         <ul id="results-container"></ul>
