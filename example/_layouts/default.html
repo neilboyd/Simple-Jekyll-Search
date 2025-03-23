@@ -23,15 +23,17 @@
       }
     </style>
 
-    <div id="search-demo-container">
+    <main class="page-content" aria-label="Content">
+
+      <div id="search-demo-container">
         <input type="search" id="search-input" placeholder="search...">
         <ul id="results-container"></ul>
-    </div>
+      </div>
 
-    <main class="page-content" aria-label="Content">
       <div class="wrapper">
         {{ content }}
       </div>
+
     </main>
 
     {%- include footer.html -%}
