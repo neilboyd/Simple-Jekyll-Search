@@ -1,24 +1,42 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
-  {% include head.html %}
+  {%- include head.html -%}
 
   <body>
 
-    {% include header.html %}
+    {%- include header.html -%}
 
-    <div id="search-demo-container">
-      <input type="search" id="search-input" placeholder="search...">
-      <ul id="results-container"></ul>
-    </div>
+    <style>
+      #search-demo-container {
+        max-width: 40em;
+        padding: 1em;
+        margin: 1em auto;
+        border: 1px solid lightgrey;
+      }
+      #search-input {
+        display: inline-block;
+        padding: .5em;
+        width: 100%;
+        font-size: 0.8em;
+        box-sizing: border-box;
+      }
+    </style>
 
-    <div class="page-content">
+    <main class="page-content" aria-label="Content">
+
+      <div id="search-demo-container">
+        <input type="search" id="search-input" placeholder="search...">
+        <ul id="results-container"></ul>
+      </div>
+
       <div class="wrapper">
         {{ content }}
       </div>
-    </div>
 
-    {% include footer.html %}
+    </main>
+
+    {%- include footer.html -%}
 
     <script src="{{ site.baseurl }}/js/simple-jekyll-search.min.js"></script>
 

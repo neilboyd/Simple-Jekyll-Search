@@ -338,7 +338,7 @@ layout: none
 #### Acceptance tests
 
 ```bash
-cd example; jekyll serve
+cd example; bundle exec jekyll serve
 
 # in another tab
 

@@ -1,5 +1,8 @@
+theme: minima
+
 plugins:
   - jekyll-github-metadata
+  - jekyll-feed
 
 sass:
   style: compressed
