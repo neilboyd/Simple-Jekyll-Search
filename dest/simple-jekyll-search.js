@@ -8,8 +8,8 @@
 'use strict'
 
 var _$Templater_7 = {
-  compile: compile,
-  setOptions: setOptions
+  compile,
+  setOptions
 }
 
 const options = {}
@@ -108,9 +108,9 @@ function LiteralSearchStrategy () {
 'use strict'
 
 var _$Repository_4 = {
-  put: put,
-  clear: clear,
-  search: search,
+  put,
+  clear,
+  search,
   setOptions: __setOptions_4
 }
 
@@ -219,7 +219,7 @@ function isExcluded (term, excludedTerms) {
 'use strict'
 
 var _$JSONLoader_2 = {
-  load: load
+  load
 }
 
 function load (location, callback) {
@@ -283,9 +283,9 @@ var _$OptionsValidator_3 = function OptionsValidator (params) {
 'use strict'
 
 var _$utils_9 = {
-  merge: merge,
-  isJSON: isJSON,
-  highlightMatchedText: highlightMatchedText
+  merge,
+  isJSON,
+  highlightMatchedText
 }
 
 function merge (defaultParams, mergeParams) {
@@ -436,7 +436,7 @@ var _$src_8 = {};
     }
 
     const rv = {
-      search: search
+      search
     }
 
     typeof options.success === 'function' && options.success.call(rv)

@@ -66,7 +66,7 @@
     }
 
     const rv = {
-      search: search
+      search
     }
 
     typeof options.success === 'function' && options.success.call(rv)

@@ -1,9 +1,9 @@
 'use strict'
 
 module.exports = {
-  merge: merge,
-  isJSON: isJSON,
-  highlightMatchedText: highlightMatchedText
+  merge,
+  isJSON,
+  highlightMatchedText
 }
 
 function merge (defaultParams, mergeParams) {

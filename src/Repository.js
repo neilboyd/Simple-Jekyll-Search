@@ -1,10 +1,10 @@
 'use strict'
 
 module.exports = {
-  put: put,
-  clear: clear,
-  search: search,
-  setOptions: setOptions
+  put,
+  clear,
+  search,
+  setOptions
 }
 
 const FuzzySearchStrategy = require('./SearchStrategies/FuzzySearchStrategy')

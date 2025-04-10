@@ -3,7 +3,7 @@
 'use strict'
 
 module.exports = {
-  load: load
+  load
 }
 
 function load (location, callback) {
