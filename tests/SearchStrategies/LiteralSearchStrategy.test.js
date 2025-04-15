@@ -33,3 +33,7 @@ test('matches when search criteria has puncuation', t => {
 test('does not match when only only one word of search criteria is in the text', t => {
   t.deepEqual(LiteralSearchStrategy.matches('hello world test search text', 'hello muppet'), false)
 })
+
+test('does not match when no words in search criteria', t => {
+  t.deepEqual(LiteralSearchStrategy.matches('hello world', '@@~~@@'), false)
+})
