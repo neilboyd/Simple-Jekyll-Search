@@ -7,7 +7,7 @@
 (function(){
 'use strict'
 
-var _$Templater_7 = {
+var _$Templater_6 = {
   compile,
   setOptions
 }
@@ -64,7 +64,7 @@ var _$fuzzysearch_1 = fuzzysearch;
 
 /* removed: const _$fuzzysearch_1 = require('fuzzysearch') */;
 
-var _$FuzzySearchStrategy_5 = new FuzzySearchStrategy()
+var _$FuzzySearchStrategy_4 = new FuzzySearchStrategy()
 
 function FuzzySearchStrategy () {
   this.matches = function (string, crit) {
@@ -77,7 +77,7 @@ function FuzzySearchStrategy () {
 
 'use strict'
 
-var _$LiteralSearchStrategy_6 = new LiteralSearchStrategy()
+var _$LiteralSearchStrategy_5 = new LiteralSearchStrategy()
 
 const segmenter = new Intl.Segmenter([], { granularity: 'word' })
 
@@ -99,6 +99,10 @@ function LiteralSearchStrategy () {
         .map((s) => s.segment)
     }
 
+    if (critArray.length === 0) {
+      return false
+    }
+
     const filter = critArray.filter((word) => str.indexOf(word) >= 0)
 
     return filter.length === critArray.length // true if it found all the words
@@ -107,15 +111,15 @@ function LiteralSearchStrategy () {
 
 'use strict'
 
-var _$Repository_4 = {
+var _$Repository_3 = {
   put,
   clear,
   search,
-  setOptions: __setOptions_4
+  setOptions: __setOptions_3
 }
 
-/* removed: const _$FuzzySearchStrategy_5 = require('./SearchStrategies/FuzzySearchStrategy') */;
-/* removed: const _$LiteralSearchStrategy_6 = require('./SearchStrategies/LiteralSearchStrategy') */;
+/* removed: const _$FuzzySearchStrategy_4 = require('./SearchStrategies/FuzzySearchStrategy') */;
+/* removed: const _$LiteralSearchStrategy_5 = require('./SearchStrategies/LiteralSearchStrategy') */;
 
 function NoSort () {
   return 0
@@ -126,7 +130,7 @@ let opt = {}
 
 opt.fuzzy = false
 opt.limit = 10
-opt.searchStrategy = opt.fuzzy ? _$FuzzySearchStrategy_5 : _$LiteralSearchStrategy_6
+opt.searchStrategy = opt.fuzzy ? _$FuzzySearchStrategy_4 : _$LiteralSearchStrategy_5
 opt.sort = NoSort
 opt.exclude = []
 
@@ -175,12 +179,12 @@ function search (crit) {
   return findMatches(data, crit, opt.searchStrategy, opt).sort(opt.sort)
 }
 
-function __setOptions_4 (_opt) {
+function __setOptions_3 (_opt) {
   opt = _opt || {}
 
   opt.fuzzy = _opt.fuzzy || false
   opt.limit = _opt.limit || 10
-  opt.searchStrategy = _opt.fuzzy ? _$FuzzySearchStrategy_5 : _$LiteralSearchStrategy_6
+  opt.searchStrategy = _opt.fuzzy ? _$FuzzySearchStrategy_4 : _$LiteralSearchStrategy_5
   opt.sort = _opt.sort || NoSort
   opt.exclude = _opt.exclude || []
 }
@@ -214,40 +218,9 @@ function isExcluded (term, excludedTerms) {
   return false
 }
 
-/* globals ActiveXObject:false */
-
 'use strict'
 
-var _$JSONLoader_2 = {
-  load
-}
-
-function load (location, callback) {
-  const xhr = getXHR()
-  xhr.open('GET', location, true)
-  xhr.onreadystatechange = createStateChangeListener(xhr, callback)
-  xhr.send()
-}
-
-function createStateChangeListener (xhr, callback) {
-  return function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      try {
-        callback(null, JSON.parse(xhr.responseText))
-      } catch (err) {
-        callback(err, null)
-      }
-    }
-  }
-}
-
-function getXHR () {
-  return window.XMLHttpRequest ? new window.XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
-}
-
-'use strict'
-
-var _$OptionsValidator_3 = function OptionsValidator (params) {
+var _$OptionsValidator_2 = function OptionsValidator (params) {
   if (!validateParams(params)) {
     throw new Error('-- OptionsValidator: required options missing')
   }
@@ -282,7 +255,7 @@ var _$OptionsValidator_3 = function OptionsValidator (params) {
 
 'use strict'
 
-var _$utils_9 = {
+var _$utils_8 = {
   merge,
   isJSON,
   highlightMatchedText
@@ -367,7 +340,7 @@ function highlightMatchedText (value, query, snippetLength = 200) {
   return value
 }
 
-var _$src_8 = {};
+var _$src_7 = {};
 (function (window) {
   'use strict'
 
@@ -401,13 +374,12 @@ var _$src_8 = {};
 
   const requiredOptions = ['searchInput', 'resultsContainer', 'json']
 
-  /* removed: const _$Templater_7 = require('./Templater') */;
-  /* removed: const _$Repository_4 = require('./Repository') */;
-  /* removed: const _$JSONLoader_2 = require('./JSONLoader') */;
-  const optionsValidator = _$OptionsValidator_3({
+  /* removed: const _$Templater_6 = require('./Templater') */;
+  /* removed: const _$Repository_3 = require('./Repository') */;
+  const optionsValidator = _$OptionsValidator_2({
     required: requiredOptions
   })
-  /* removed: const _$utils_9 = require('./utils') */;
+  /* removed: const _$utils_8 = require('./utils') */;
 
   window.SimpleJekyllSearch = function (_options) {
     const errors = optionsValidator.validate(_options)
@@ -415,21 +387,21 @@ var _$src_8 = {};
       throwError('You must specify the following required options: ' + requiredOptions)
     }
 
-    options = _$utils_9.merge(options, _options)
+    options = _$utils_8.merge(options, _options)
 
-    _$Templater_7.setOptions({
+    _$Templater_6.setOptions({
       template: options.searchResultTemplate,
       middleware: options.templateMiddleware
     })
 
-    _$Repository_4.setOptions({
+    _$Repository_3.setOptions({
       fuzzy: options.fuzzy,
       limit: options.limit,
       sort: options.sortMiddleware,
       exclude: options.exclude
     })
 
-    if (_$utils_9.isJSON(options.json)) {
+    if (_$utils_8.isJSON(options.json)) {
       initWithJSON(options.json)
     } else {
       initWithURL(options.json)
@@ -443,20 +415,24 @@ var _$src_8 = {};
     return rv
   }
 
-  window.HighlightMatchedText = _$utils_9.highlightMatchedText
+  window.HighlightMatchedText = _$utils_8.highlightMatchedText
 
   function initWithJSON (json) {
-    _$Repository_4.put(json)
+    _$Repository_3.put(json)
     registerInput()
   }
 
-  function initWithURL (url) {
-    _$JSONLoader_2.load(url, function (err, json) {
-      if (err) {
-        throwError('failed to get JSON (' + url + ')')
+  async function initWithURL (url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`)
       }
+      const json = await response.json()
       initWithJSON(json)
-    })
+    } catch (err) {
+      throwError('failed to get JSON (' + url + ')')
+    }
   }
 
   function emptyResultsContainer () {
@@ -479,7 +455,7 @@ var _$src_8 = {};
   function search (query) {
     if (isValidQuery(query)) {
       emptyResultsContainer()
-      render(_$Repository_4.search(query), query)
+      render(_$Repository_3.search(query), query)
 
       typeof options.onSearch === 'function' && options.onSearch.call()
     }
@@ -492,7 +468,7 @@ var _$src_8 = {};
     }
     for (let i = 0; i < len; i++) {
       results[i].query = query
-      appendToResultsContainer(_$Templater_7.compile(results[i]))
+      appendToResultsContainer(_$Templater_6.compile(results[i]))
     }
   }
 
