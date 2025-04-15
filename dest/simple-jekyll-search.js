@@ -99,6 +99,10 @@ function LiteralSearchStrategy () {
         .map((s) => s.segment)
     }
 
+    if (critArray.length === 0) {
+      return false
+    }
+
     const filter = critArray.filter((word) => str.indexOf(word) >= 0)
 
     return filter.length === critArray.length // true if it found all the words
