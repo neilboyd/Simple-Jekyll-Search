@@ -33,7 +33,6 @@
 
   const templater = require('./Templater')
   const repository = require('./Repository')
-  const jsonLoader = require('./JSONLoader')
   const optionsValidator = require('./OptionsValidator')({
     required: requiredOptions
   })
@@ -66,7 +65,7 @@
     }
 
     const rv = {
-      search: search
+      search
     }
 
     typeof options.success === 'function' && options.success.call(rv)
@@ -80,13 +79,17 @@
     registerInput()
   }
 
-  function initWithURL (url) {
-    jsonLoader.load(url, function (err, json) {
-      if (err) {
-        throwError('failed to get JSON (' + url + ')')
+  async function initWithURL (url) {
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`)
       }
+      const json = await response.json()
       initWithJSON(json)
-    })
+    } catch (err) {
+      throwError('failed to get JSON (' + url + ')')
+    }
   }
 
   function emptyResultsContainer () {

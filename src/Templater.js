@@ -1,8 +1,8 @@
 'use strict'
 
 module.exports = {
-  compile: compile,
-  setOptions: setOptions
+  compile,
+  setOptions
 }
 
 const options = {}
