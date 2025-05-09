@@ -26,6 +26,16 @@ test('limits the search results to one even if found more', t => {
   t.deepEqual(repository.search('bar'), [barElement])
 })
 
+test('limits the search results to first matching by sort critera', t => {
+  repository.setOptions({
+    limit: 1,
+    sort: (a, b) => {
+      return a.title.localeCompare(b.title)
+    }
+  })
+  t.deepEqual(repository.search('bar'), [almostBarElement])
+})
+
 test('finds a long string', t => {
   t.deepEqual(repository.search('lorem ipsum'), [loremElement])
 })
