@@ -16,6 +16,7 @@ function LiteralSearchStrategy () {
         .filter((s) => s.isWordLike)
         .map((s) => s.segment)
     }
+    return this
   }
 
   this.matches = function (str) {

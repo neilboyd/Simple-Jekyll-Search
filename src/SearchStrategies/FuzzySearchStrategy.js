@@ -8,6 +8,7 @@ function FuzzySearchStrategy () {
   this.criteria = ''
   this.setCriteria = function (crit) {
     this.criteria = crit.toUpperCase()
+    return this
   }
 
   this.matches = function (string) {
