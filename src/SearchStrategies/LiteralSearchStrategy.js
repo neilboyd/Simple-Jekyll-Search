@@ -5,29 +5,31 @@ module.exports = new LiteralSearchStrategy()
 const segmenter = new Intl.Segmenter([], { granularity: 'word' })
 
 function LiteralSearchStrategy () {
-  this.matches = function (str, crit) {
-    if (!str) {
-      return false
-    }
-    str = str.trim().toUpperCase()
+  this.critArray = []
+  this.setCriteria = function (crit) {
     crit = crit.trim().toUpperCase()
-
-    let critArray = []
     if (crit.startsWith('"') && crit.endsWith('"')) {
-      critArray = [crit.substring(1, crit.length - 1)]
+      this.critArray = [crit.substring(1, crit.length - 1)]
     } else {
       const segmentedText = segmenter.segment(crit)
-      critArray = [...segmentedText]
+      this.critArray = [...segmentedText]
         .filter((s) => s.isWordLike)
         .map((s) => s.segment)
     }
+  }
 
-    if (critArray.length === 0) {
+  this.matches = function (str) {
+    if (!str) {
+      return false
+    }
+    if (this.critArray.length === 0) {
       return false
     }
 
-    const filter = critArray.filter((word) => str.indexOf(word) >= 0)
+    str = str.trim().toUpperCase()
 
-    return filter.length === critArray.length // true if it found all the words
+    const filter = this.critArray.filter((word) => str.indexOf(word) >= 0)
+
+    return filter.length === this.critArray.length // true if it found all the words
   }
 }

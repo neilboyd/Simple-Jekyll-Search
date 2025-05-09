@@ -5,10 +5,15 @@ const fuzzysearch = require('fuzzysearch')
 module.exports = new FuzzySearchStrategy()
 
 function FuzzySearchStrategy () {
-  this.matches = function (string, crit) {
+  this.criteria = ''
+  this.setCriteria = function (crit) {
+    this.criteria = crit.toUpperCase()
+  }
+
+  this.matches = function (string) {
     if (string === null) {
       return false
     }
-    return fuzzysearch(crit.toUpperCase(), string.toUpperCase())
+    return fuzzysearch(this.criteria, string.toUpperCase())
   }
 }

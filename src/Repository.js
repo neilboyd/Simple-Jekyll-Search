@@ -65,7 +65,9 @@ function search (crit) {
   if (!crit) {
     return []
   }
-  return findMatches(data, crit, opt.searchStrategy, opt).sort(opt.sort).splice(0, opt.limit)
+  return findMatches(data, crit, opt.searchStrategy, opt)
+    .sort(opt.sort)
+    .splice(0, opt.limit)
 }
 
 function setOptions (_opt) {
@@ -79,9 +81,10 @@ function setOptions (_opt) {
 }
 
 function findMatches (data, crit, strategy, opt) {
+  strategy.setCriteria(crit)
   const matches = []
   for (let i = 0; i < data.length; i++) {
-    const match = findMatchesInObject(data[i], crit, strategy, opt)
+    const match = findMatchesInObject(data[i], strategy, opt)
     if (match) {
       matches.push(match)
     }
@@ -89,9 +92,9 @@ function findMatches (data, crit, strategy, opt) {
   return matches
 }
 
-function findMatchesInObject (obj, crit, strategy, opt) {
+function findMatchesInObject (obj, strategy, opt) {
   for (const key in obj) {
-    if (key !== 'query' && !isExcluded(obj[key], opt.exclude) && strategy.matches(obj[key], crit)) {
+    if (key !== 'query' && !isExcluded(obj[key], opt.exclude) && strategy.matches(obj[key])) {
       return obj
     }
   }
