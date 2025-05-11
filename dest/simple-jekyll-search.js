@@ -121,17 +121,12 @@ var _$Repository_3 = {
 /* removed: const _$FuzzySearchStrategy_4 = require('./SearchStrategies/FuzzySearchStrategy') */;
 /* removed: const _$LiteralSearchStrategy_5 = require('./SearchStrategies/LiteralSearchStrategy') */;
 
-function NoSort () {
-  return 0
-}
-
 const data = []
 let opt = {}
 
 opt.fuzzy = false
 opt.limit = 10
 opt.searchStrategy = opt.fuzzy ? _$FuzzySearchStrategy_4 : _$LiteralSearchStrategy_5
-opt.sort = NoSort
 opt.exclude = []
 
 function put (data) {
@@ -176,23 +171,28 @@ function search (crit) {
   if (!crit) {
     return []
   }
-  return findMatches(data, crit, opt.searchStrategy, opt).sort(opt.sort).splice(0, opt.limit)
+  if (opt.sort) {
+    return findMatches(data, crit, opt).sort(opt.sort).splice(0, opt.limit)
+  }
+  return findMatches(data, crit, opt)
 }
 
 function __setOptions_3 (_opt) {
   opt = _opt || {}
 
-  opt.fuzzy = _opt.fuzzy || false
-  opt.limit = _opt.limit || 10
-  opt.searchStrategy = _opt.fuzzy ? _$FuzzySearchStrategy_4 : _$LiteralSearchStrategy_5
-  opt.sort = _opt.sort || NoSort
-  opt.exclude = _opt.exclude || []
+  opt.fuzzy = opt.fuzzy || false
+  opt.limit = opt.limit || 10
+  opt.searchStrategy = opt.fuzzy ? _$FuzzySearchStrategy_4 : _$LiteralSearchStrategy_5
+  opt.exclude = opt.exclude || []
 }
 
-function findMatches (data, crit, strategy, opt) {
+function findMatches (data, crit, opt) {
   const matches = []
   for (let i = 0; i < data.length; i++) {
-    const match = findMatchesInObject(data[i], crit, strategy, opt)
+    if (!opt.sort && matches.length >= opt.limit) {
+      break
+    }
+    const match = findMatchesInObject(data[i], crit, opt)
     if (match) {
       matches.push(match)
     }
@@ -200,9 +200,9 @@ function findMatches (data, crit, strategy, opt) {
   return matches
 }
 
-function findMatchesInObject (obj, crit, strategy, opt) {
+function findMatchesInObject (obj, crit, opt) {
   for (const key in obj) {
-    if (key !== 'query' && !isExcluded(obj[key], opt.exclude) && strategy.matches(obj[key], crit)) {
+    if (key !== 'query' && !isExcluded(obj[key], opt.exclude) && opt.searchStrategy.matches(obj[key], crit)) {
       return obj
     }
   }
