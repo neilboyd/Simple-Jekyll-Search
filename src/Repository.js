@@ -10,17 +10,12 @@ module.exports = {
 const FuzzySearchStrategy = require('./SearchStrategies/FuzzySearchStrategy')
 const LiteralSearchStrategy = require('./SearchStrategies/LiteralSearchStrategy')
 
-function NoSort () {
-  return 0
-}
-
 const data = []
 let opt = {}
 
 opt.fuzzy = false
 opt.limit = 10
 opt.searchStrategy = opt.fuzzy ? FuzzySearchStrategy : LiteralSearchStrategy
-opt.sort = NoSort
 opt.exclude = []
 
 function put (data) {
@@ -65,7 +60,10 @@ function search (crit) {
   if (!crit) {
     return []
   }
-  return findMatches(data, crit, opt.searchStrategy, opt).sort(opt.sort).splice(0, opt.limit)
+  if (opt.sort) {
+    return findMatches(data, crit, opt.searchStrategy, opt).sort(opt.sort).splice(0, opt.limit)
+  }
+  return findMatches(data, crit, opt.searchStrategy, opt)
 }
 
 function setOptions (_opt) {
@@ -74,13 +72,15 @@ function setOptions (_opt) {
   opt.fuzzy = _opt.fuzzy || false
   opt.limit = _opt.limit || 10
   opt.searchStrategy = _opt.fuzzy ? FuzzySearchStrategy : LiteralSearchStrategy
-  opt.sort = _opt.sort || NoSort
   opt.exclude = _opt.exclude || []
 }
 
 function findMatches (data, crit, strategy, opt) {
   const matches = []
   for (let i = 0; i < data.length; i++) {
+    if (!opt.sort && matches.length >= opt.limit) {
+      break
+    }
     const match = findMatchesInObject(data[i], crit, strategy, opt)
     if (match) {
       matches.push(match)
