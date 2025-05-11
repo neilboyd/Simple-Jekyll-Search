@@ -77,11 +77,12 @@ function setOptions (_opt) {
 
 function findMatches (data, crit, opt) {
   const matches = []
+  opt.searchStrategy.setCriteria(crit)
   for (let i = 0; i < data.length; i++) {
     if (!opt.sort && matches.length >= opt.limit) {
       break
     }
-    const match = findMatchesInObject(data[i], crit, opt)
+    const match = findMatchesInObject(data[i], opt)
     if (match) {
       matches.push(match)
     }
@@ -89,9 +90,9 @@ function findMatches (data, crit, opt) {
   return matches
 }
 
-function findMatchesInObject (obj, crit, opt) {
+function findMatchesInObject (obj, opt) {
   for (const key in obj) {
-    if (key !== 'query' && !isExcluded(obj[key], opt.exclude) && opt.searchStrategy.matches(obj[key], crit)) {
+    if (key !== 'query' && !isExcluded(obj[key], opt.exclude) && opt.searchStrategy.matches(obj[key])) {
       return obj
     }
   }
