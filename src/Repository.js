@@ -69,10 +69,10 @@ function search (crit) {
 function setOptions (_opt) {
   opt = _opt || {}
 
-  opt.fuzzy = _opt.fuzzy || false
-  opt.limit = _opt.limit || 10
-  opt.searchStrategy = _opt.fuzzy ? FuzzySearchStrategy : LiteralSearchStrategy
-  opt.exclude = _opt.exclude || []
+  opt.fuzzy = opt.fuzzy || false
+  opt.limit = opt.limit || 10
+  opt.searchStrategy = opt.fuzzy ? FuzzySearchStrategy : LiteralSearchStrategy
+  opt.exclude = opt.exclude || []
 }
 
 function findMatches (data, crit, opt) {
