@@ -1,5 +1,5 @@
 /*!
-  * Simple-Jekyll-Search 1.13.3
+  * Simple-Jekyll-Search 1.14.0
   * Copyright 2015-2025, Christian Fei, Neil Boyd
   * Licensed under the MIT License.
   */
@@ -67,11 +67,17 @@ var _$fuzzysearch_1 = fuzzysearch;
 var _$FuzzySearchStrategy_4 = new FuzzySearchStrategy()
 
 function FuzzySearchStrategy () {
-  this.matches = function (string, crit) {
+  this.criteria = ''
+  this.setCriteria = function (crit) {
+    this.criteria = crit.toUpperCase()
+    return this
+  }
+
+  this.matches = function (string) {
     if (string === null) {
       return false
     }
-    return _$fuzzysearch_1(crit.toUpperCase(), string.toUpperCase())
+    return _$fuzzysearch_1(this.criteria, string.toUpperCase())
   }
 }
 
@@ -82,30 +88,33 @@ var _$LiteralSearchStrategy_5 = new LiteralSearchStrategy()
 const segmenter = new Intl.Segmenter([], { granularity: 'word' })
 
 function LiteralSearchStrategy () {
-  this.matches = function (str, crit) {
-    if (!str) {
-      return false
-    }
-    str = str.trim().toUpperCase()
+  this.critArray = []
+  this.setCriteria = function (crit) {
     crit = crit.trim().toUpperCase()
-
-    let critArray = []
     if (crit.startsWith('"') && crit.endsWith('"')) {
-      critArray = [crit.substring(1, crit.length - 1)]
+      this.critArray = [crit.substring(1, crit.length - 1)]
     } else {
       const segmentedText = segmenter.segment(crit)
-      critArray = [...segmentedText]
+      this.critArray = [...segmentedText]
         .filter((s) => s.isWordLike)
         .map((s) => s.segment)
     }
+    return this
+  }
 
-    if (critArray.length === 0) {
+  this.matches = function (str) {
+    if (!str) {
+      return false
+    }
+    if (this.critArray.length === 0) {
       return false
     }
 
-    const filter = critArray.filter((word) => str.indexOf(word) >= 0)
+    str = str.trim().toUpperCase()
 
-    return filter.length === critArray.length // true if it found all the words
+    const filter = this.critArray.filter((word) => str.indexOf(word) >= 0)
+
+    return filter.length === this.critArray.length // true if it found all the words
   }
 }
 
@@ -188,11 +197,12 @@ function __setOptions_3 (_opt) {
 
 function findMatches (data, crit, opt) {
   const matches = []
+  opt.searchStrategy.setCriteria(crit)
   for (let i = 0; i < data.length; i++) {
     if (!opt.sort && matches.length >= opt.limit) {
       break
     }
-    const match = findMatchesInObject(data[i], crit, opt)
+    const match = findMatchesInObject(data[i], opt)
     if (match) {
       matches.push(match)
     }
@@ -200,9 +210,9 @@ function findMatches (data, crit, opt) {
   return matches
 }
 
-function findMatchesInObject (obj, crit, opt) {
+function findMatchesInObject (obj, opt) {
   for (const key in obj) {
-    if (key !== 'query' && !isExcluded(obj[key], opt.exclude) && opt.searchStrategy.matches(obj[key], crit)) {
+    if (key !== 'query' && !isExcluded(obj[key], opt.exclude) && opt.searchStrategy.matches(obj[key])) {
       return obj
     }
   }
