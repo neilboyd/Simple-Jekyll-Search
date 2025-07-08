@@ -96,7 +96,7 @@ Customize SimpleJekyllSearch by passing in your configuration options:
 var sjs = SimpleJekyllSearch({
   searchInput: document.getElementById('search-input'),
   resultsContainer: document.getElementById('results-container'),
-  json: '/search.json'
+  json: '{% link search.json %}'
 })
 ```
 
